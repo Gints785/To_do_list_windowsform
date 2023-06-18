@@ -20,13 +20,30 @@ namespace To_do_list_windowsform
 
         DataTable todolist = new DataTable();
         bool isEditing = false;
+        
+
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            todolist.Columns.Add("Title");
-            todolist.Columns.Add("Description");
+            todolist.Columns.Add("Svarīgi", typeof(bool));
+            todolist.Columns.Add("Virsraksts");
+            todolist.Columns.Add("Teksts");
+
             ToDoListView.DataSource = todolist;
+
+        
+            ToDoListView.DefaultCellStyle.SelectionBackColor = ToDoListView.DefaultCellStyle.BackColor;
+            ToDoListView.DefaultCellStyle.SelectionForeColor = ToDoListView.DefaultCellStyle.ForeColor;
+            ToDoListView.AllowUserToAddRows = false;
+
+
+
+
+
+
+
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -41,45 +58,106 @@ namespace To_do_list_windowsform
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(TitleTextBox.Text) && string.IsNullOrEmpty(DescriptionTextBox.Text))
+            {
+              
+                return;
+            }
+
+
             if (isEditing)
             {
-                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Title"] = TitleTextBox.Text;
-                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Description"] = DescriptionTextBox.Text;
+               
+                bool starStatus = (bool)todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Svarīgi"];
+                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Virsraksts"] = TitleTextBox.Text;
+                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Teksts"] = DescriptionTextBox.Text;
+                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Svarīgi"] = starStatus;
+
             }
             else
             {
-                todolist.Rows.Add(TitleTextBox.Text, DescriptionTextBox.Text);
+                todolist.Rows.Add(false, TitleTextBox.Text, DescriptionTextBox.Text);
             }
             TitleTextBox.Text = "";
             DescriptionTextBox.Text = "";
             isEditing = false;
-
+     
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            isEditing = false;
             TitleTextBox.Text = "";
             DescriptionTextBox.Text = "";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            isEditing = true;
-            TitleTextBox.Text = todolist.Rows[ToDoListView.CurrentCell.RowIndex].ItemArray[0].ToString();
-            DescriptionTextBox.Text = todolist.Rows[ToDoListView.CurrentCell.RowIndex].ItemArray[1].ToString();
-        }
+
+            int selectedRowIndex = ToDoListView.CurrentCell?.RowIndex ?? -1;
+
+            if (selectedRowIndex >= 0)
+            {
+
+
+                isEditing = true;
+            TitleTextBox.Text = todolist.Rows[ToDoListView.CurrentCell.RowIndex].ItemArray[1].ToString();
+            DescriptionTextBox.Text = todolist.Rows[ToDoListView.CurrentCell.RowIndex].ItemArray[2].ToString();
+            }
+        }   
 
         private void button3_Click(object sender, EventArgs e)
         {
             try
             {
+                isEditing = false;
                 todolist.Rows[ToDoListView.CurrentCell.RowIndex].Delete();
+                TitleTextBox.Text = "";
+                DescriptionTextBox.Text = "";
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex);
             }
         }
+
+
+
+
+
+        private void ToDoListView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 0)
+            {
+          
+                ToDoListView.CellClick -= ToDoListView_CellClick;
+
+                bool starStatus = (bool)todolist.Rows[e.RowIndex]["Svarīgi"];
+                todolist.Rows[e.RowIndex]["Svarīgi"] = !starStatus;
+
+
+                ToDoListView.Refresh();
+             
+            }
+        }
+        private void ToDoListView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (ToDoListView.SelectedRows.Count > 0)
+            {
+                TitleTextBox.ReadOnly = true;
+                DescriptionTextBox.ReadOnly = true;
+            }
+            else
+            {
+                TitleTextBox.ReadOnly = false;
+                DescriptionTextBox.ReadOnly = false;
+            }
+        }
+
+
+
+
+
 
         // Apakšā ir poga kas atbild par gaismas un tumšās tēmas pārslēgšanu
         private void button5_Click(object sender, EventArgs e)
@@ -164,6 +242,15 @@ namespace To_do_list_windowsform
             }
         }
 
+        private void TitleTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
