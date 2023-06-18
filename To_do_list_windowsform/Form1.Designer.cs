@@ -37,6 +37,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.ToDoListView = new System.Windows.Forms.DataGridView();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ToDoListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,12 +125,24 @@
             this.ToDoListView.Size = new System.Drawing.Size(492, 367);
             this.ToDoListView.TabIndex = 8;
             // 
+            // button5
+            // 
+            this.button5.BackgroundImage = global::To_do_list_windowsform.Properties.Resources.dark_theme;
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.Location = new System.Drawing.Point(749, 405);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(50, 45);
+            this.button5.TabIndex = 9;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // ToDoList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.ToDoListView);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -159,6 +172,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridView ToDoListView;
+        private System.Windows.Forms.Button button5;
     }
 }
 
