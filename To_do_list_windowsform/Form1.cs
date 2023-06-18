@@ -24,8 +24,8 @@ namespace To_do_list_windowsform
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ToDoListView.Columns.Add("Title1", "Title");
-            ToDoListView.Columns.Add("Description1", "Description");
+            todolist.Columns.Add("Title");
+            todolist.Columns.Add("Description");
             ToDoListView.DataSource = todolist;
         }
 
