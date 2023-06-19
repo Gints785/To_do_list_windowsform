@@ -38,6 +38,10 @@
             this.button4 = new System.Windows.Forms.Button();
             this.ToDoListView = new System.Windows.Forms.DataGridView();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CategoryTextBox = new System.Windows.Forms.TextBox();
+            this.Kategorija = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ToDoListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +61,6 @@
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(252, 20);
             this.TitleTextBox.TabIndex = 1;
-            this.TitleTextBox.TextChanged += new System.EventHandler(this.TitleTextBox_TextChanged);
             // 
             // DescriptionTextBox
             // 
@@ -66,7 +69,7 @@
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(252, 100);
             this.DescriptionTextBox.TabIndex = 2;
-            this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
+
             // 
             // label1
             // 
@@ -125,6 +128,8 @@
             this.ToDoListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ToDoListView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ToDoListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ToDoListView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Kategorija});
             this.ToDoListView.Location = new System.Drawing.Point(283, 34);
             this.ToDoListView.Name = "ToDoListView";
             this.ToDoListView.Size = new System.Drawing.Size(492, 367);
@@ -141,12 +146,51 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(12, 402);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(119, 30);
+            this.button6.TabIndex = 10;
+            this.button6.Text = "Save Category";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label3.Location = new System.Drawing.Point(12, 354);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(167, 22);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Nosaukums:";
+            // 
+            // CategoryTextBox
+            // 
+            this.CategoryTextBox.Location = new System.Drawing.Point(12, 379);
+            this.CategoryTextBox.Name = "CategoryTextBox";
+            this.CategoryTextBox.Size = new System.Drawing.Size(252, 20);
+            this.CategoryTextBox.TabIndex = 11;
+
+            // 
+            // Kategorija
+            // 
+            this.Kategorija.DataPropertyName = "Category";
+            this.Kategorija.HeaderText = "Kategorija";
+            this.Kategorija.MaxDropDownItems = 15;
+            this.Kategorija.Name = "Kategorija";
+            this.Kategorija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // ToDoList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.CategoryTextBox);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.ToDoListView);
             this.Controls.Add(this.button4);
@@ -180,6 +224,10 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridView ToDoListView;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox CategoryTextBox;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Kategorija;
     }
 }
 

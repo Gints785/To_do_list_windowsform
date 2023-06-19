@@ -20,8 +20,27 @@ namespace To_do_list_windowsform
 
         DataTable todolist = new DataTable();
         bool isEditing = false;
-        
+        public List<string> Categories = new List<string>();
+        private void BindCategory(String Nosaukums)
+        {
+            var combobox = (DataGridViewComboBoxColumn)ToDoListView.Columns["Kategorija"];
+            combobox.DataSource = SetCategories(Nosaukums);
+        }
+        private List<string> SetCategories(string Nosaukums) 
+        {
+            Categories.Add(Nosaukums);
+            return Categories;
+               
+        }
+        //private List<Category> GetCategories()
+        //{
+        //    return new List<Category>
+        //    {
+        //        new Category{Name="Diary",ID=1},
+        //        new Category{Name="Grocery", ID=2}
+        //    };
 
+        //}
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -31,17 +50,11 @@ namespace To_do_list_windowsform
             todolist.Columns.Add("Teksts");
 
             ToDoListView.DataSource = todolist;
-
+            BindCategory(" ");
         
             ToDoListView.DefaultCellStyle.SelectionBackColor = ToDoListView.DefaultCellStyle.BackColor;
             ToDoListView.DefaultCellStyle.SelectionForeColor = ToDoListView.DefaultCellStyle.ForeColor;
             ToDoListView.AllowUserToAddRows = false;
-
-
-
-
-
-
 
 
         }
@@ -242,15 +255,24 @@ namespace To_do_list_windowsform
             }
         }
 
-        private void TitleTextBox_TextChanged(object sender, EventArgs e)
+
+        private void button6_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(CategoryTextBox.Text))
+            {
+
+                return;
+            }
+
+            else
+            {
+                BindCategory(CategoryTextBox.Text);
+            }
+            CategoryTextBox.Text = "";
 
         }
 
-        private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
-        {
 
-        }
     }
 
 }
