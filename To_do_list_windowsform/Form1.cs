@@ -50,7 +50,6 @@ namespace To_do_list_windowsform
             todolist.Columns.Add("Teksts");
 
             ToDoListView.DataSource = todolist;
-            BindCategory(" ");
         
             ToDoListView.DefaultCellStyle.SelectionBackColor = ToDoListView.DefaultCellStyle.BackColor;
             ToDoListView.DefaultCellStyle.SelectionForeColor = ToDoListView.DefaultCellStyle.ForeColor;
