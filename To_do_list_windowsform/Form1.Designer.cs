@@ -37,11 +37,13 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.ToDoListView = new System.Windows.Forms.DataGridView();
+            this.Kategorija = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.CategoryTextBox = new System.Windows.Forms.TextBox();
-            this.Kategorija = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.CategoryBox = new System.Windows.Forms.ComboBox();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ToDoListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +71,6 @@
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(252, 100);
             this.DescriptionTextBox.TabIndex = 2;
-
             // 
             // label1
             // 
@@ -135,6 +136,14 @@
             this.ToDoListView.Size = new System.Drawing.Size(492, 367);
             this.ToDoListView.TabIndex = 8;
             // 
+            // Kategorija
+            // 
+            this.Kategorija.DataPropertyName = "Category";
+            this.Kategorija.HeaderText = "Kategorija";
+            this.Kategorija.MaxDropDownItems = 15;
+            this.Kategorija.Name = "Kategorija";
+            this.Kategorija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // button5
             // 
             this.button5.BackgroundImage = global::To_do_list_windowsform.Properties.Resources.dark_theme;
@@ -172,15 +181,25 @@
             this.CategoryTextBox.Name = "CategoryTextBox";
             this.CategoryTextBox.Size = new System.Drawing.Size(252, 20);
             this.CategoryTextBox.TabIndex = 11;
-
             // 
-            // Kategorija
+            // CategoryBox
             // 
-            this.Kategorija.DataPropertyName = "Category";
-            this.Kategorija.HeaderText = "Kategorija";
-            this.Kategorija.MaxDropDownItems = 15;
-            this.Kategorija.Name = "Kategorija";
-            this.Kategorija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CategoryBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CategoryBox.FormattingEnabled = true;
+            this.CategoryBox.Location = new System.Drawing.Point(12, 272);
+            this.CategoryBox.Name = "CategoryBox";
+            this.CategoryBox.Size = new System.Drawing.Size(121, 21);
+            this.CategoryBox.TabIndex = 13;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(12, 299);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(119, 30);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "Delete Category";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // ToDoList
             // 
@@ -188,6 +207,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.CategoryBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.CategoryTextBox);
             this.Controls.Add(this.button6);
@@ -228,6 +249,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox CategoryTextBox;
         private System.Windows.Forms.DataGridViewComboBoxColumn Kategorija;
+        private System.Windows.Forms.ComboBox CategoryBox;
+        private System.Windows.Forms.Button button7;
     }
 }
 

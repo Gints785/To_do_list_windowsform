@@ -25,6 +25,9 @@ namespace To_do_list_windowsform
         {
             var combobox = (DataGridViewComboBoxColumn)ToDoListView.Columns["Kategorija"];
             combobox.DataSource = SetCategories(Nosaukums);
+            CategoryBox.DataSource = null;
+            CategoryBox.DataSource = Categories;
+
         }
         private List<string> SetCategories(string Nosaukums) 
         {
@@ -271,7 +274,28 @@ namespace To_do_list_windowsform
 
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (CategoryBox.SelectedIndex != -1)
+            {
+                if(MessageBox.Show("Vai esat pārliecināts, ka vēlaties noņemt kategoriju?", "Delete Kategorija",MessageBoxButtons.YesNo,MessageBoxIcon.Information)==DialogResult.Yes)
+                {
 
+                    Categories.Remove((string)CategoryBox.SelectedItem);
+                    CategoryBox.DataSource = null;
+                    CategoryBox.DataSource = Categories;
+
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Izvēlieties, kuru kategoriju vēlaties noņemt", "Delete Kategorija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 
 }
