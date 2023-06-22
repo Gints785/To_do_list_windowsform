@@ -44,6 +44,7 @@
             this.CategoryTextBox = new System.Windows.Forms.TextBox();
             this.CategoryBox = new System.Windows.Forms.ComboBox();
             this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ToDoListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 30);
             this.button1.TabIndex = 0;
-            this.button1.Text = "New";
+            this.button1.Text = "Jaunu";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -100,7 +101,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 30);
             this.button2.TabIndex = 5;
-            this.button2.Text = "Edit";
+            this.button2.Text = "Rediģēt";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -110,7 +111,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(119, 30);
             this.button3.TabIndex = 6;
-            this.button3.Text = "Delete";
+            this.button3.Text = "Dzēst";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -120,7 +121,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(119, 30);
             this.button4.TabIndex = 7;
-            this.button4.Text = "Save";
+            this.button4.Text = "Ievietot";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -201,12 +202,23 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(597, 402);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(122, 45);
+            this.button8.TabIndex = 15;
+            this.button8.Text = "Saglabāt";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click_1);
+            // 
             // ToDoList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.CategoryBox);
             this.Controls.Add(this.label3);
@@ -251,6 +263,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Kategorija;
         private System.Windows.Forms.ComboBox CategoryBox;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 

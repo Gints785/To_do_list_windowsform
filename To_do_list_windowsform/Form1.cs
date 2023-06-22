@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+
+
 
 namespace To_do_list_windowsform
 {
@@ -49,7 +52,7 @@ namespace To_do_list_windowsform
         private void Form1_Load(object sender, EventArgs e)
         {
             todolist.Columns.Add("Svarīgi", typeof(bool));
-            todolist.Columns.Add("Virsraksts");
+            todolist.Columns.Add("Nosaukums");
             todolist.Columns.Add("Teksts");
 
             ToDoListView.DataSource = todolist;
@@ -58,6 +61,10 @@ namespace To_do_list_windowsform
             ToDoListView.DefaultCellStyle.SelectionForeColor = ToDoListView.DefaultCellStyle.ForeColor;
             ToDoListView.AllowUserToAddRows = false;
 
+            ToDoListView.Columns["Nosaukums"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
+            ToDoListView.Columns["Teksts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
+
+            LoadData();
 
         }
 
@@ -84,7 +91,7 @@ namespace To_do_list_windowsform
             {
                
                 bool starStatus = (bool)todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Svarīgi"];
-                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Virsraksts"] = TitleTextBox.Text;
+                todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Nosaukums"] = TitleTextBox.Text;
                 todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Teksts"] = DescriptionTextBox.Text;
                 todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Svarīgi"] = starStatus;
 
@@ -295,6 +302,76 @@ namespace To_do_list_windowsform
             {
                 MessageBox.Show("Izvēlieties, kuru kategoriju vēlaties noņemt", "Delete Kategorija", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+
+        private void SaveData()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, "data.txt");
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(filePath))
+                {
+                    foreach (DataRow row in todolist.Rows)
+                    {
+                        bool important = (bool)row["Svarīgi"];
+                        string title = row["Nosaukums"].ToString();
+                        string description = row["Teksts"].ToString();
+
+                        sw.WriteLine($"{important}\t{title}\t{description}");
+                    }
+                }
+                MessageBox.Show("Data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving data: " + ex.Message);
+            }
+        }
+
+
+
+
+
+
+
+
+        private void LoadData()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, "data.txt");
+
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    todolist.Clear();
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            string[] data = line.Split('\t');
+                            bool important = bool.Parse(data[0]);
+                            string title = data[1];
+                            string description = data[2];
+
+                            todolist.Rows.Add(important, title, description);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error loading data: " + ex.Message);
+                }
+            }
+        }
+
+        private void button8_Click_1(object sender, EventArgs e)
+        {
+            SaveData();
         }
     }
 
