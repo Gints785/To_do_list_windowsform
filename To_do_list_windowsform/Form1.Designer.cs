@@ -37,7 +37,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.ToDoListView = new System.Windows.Forms.DataGridView();
-            this.Kategorija = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,6 +44,7 @@
             this.CategoryBox = new System.Windows.Forms.ComboBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.Kategorija = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ToDoListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +82,6 @@
             this.label1.Size = new System.Drawing.Size(167, 22);
             this.label1.TabIndex = 3;
             this.label1.Text = "Virsraksts:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -93,7 +92,6 @@
             this.label2.Size = new System.Drawing.Size(167, 22);
             this.label2.TabIndex = 4;
             this.label2.Text = "Teksts:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // button2
             // 
@@ -136,14 +134,6 @@
             this.ToDoListView.Name = "ToDoListView";
             this.ToDoListView.Size = new System.Drawing.Size(492, 367);
             this.ToDoListView.TabIndex = 8;
-            // 
-            // Kategorija
-            // 
-            this.Kategorija.DataPropertyName = "Category";
-            this.Kategorija.HeaderText = "Kategorija";
-            this.Kategorija.MaxDropDownItems = 15;
-            this.Kategorija.Name = "Kategorija";
-            this.Kategorija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // button5
             // 
@@ -212,6 +202,16 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click_1);
             // 
+            // Kategorija
+            // 
+            this.Kategorija.AutoComplete = false;
+            this.Kategorija.DataPropertyName = "Category";
+            this.Kategorija.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.Kategorija.HeaderText = "Kategorija";
+            this.Kategorija.MaxDropDownItems = 15;
+            this.Kategorija.Name = "Kategorija";
+            this.Kategorija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // ToDoList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -260,10 +260,10 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox CategoryTextBox;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Kategorija;
         private System.Windows.Forms.ComboBox CategoryBox;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Kategorija;
     }
 }
 

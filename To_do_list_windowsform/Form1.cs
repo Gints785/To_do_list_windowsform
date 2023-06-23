@@ -38,23 +38,16 @@ namespace To_do_list_windowsform
             return Categories;
                
         }
-        //private List<Category> GetCategories()
-        //{
-        //    return new List<Category>
-        //    {
-        //        new Category{Name="Diary",ID=1},
-        //        new Category{Name="Grocery", ID=2}
-        //    };
-
-        //}
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Categories.Add(" ");
+            var combo = (DataGridViewComboBoxColumn)ToDoListView.Columns["Kategorija"];
+            combo.DataSource = Categories;
             todolist.Columns.Add("Svarīgi", typeof(bool));
             todolist.Columns.Add("Nosaukums");
             todolist.Columns.Add("Teksts");
-
             ToDoListView.DataSource = todolist;
         
             ToDoListView.DefaultCellStyle.SelectionBackColor = ToDoListView.DefaultCellStyle.BackColor;
@@ -63,18 +56,9 @@ namespace To_do_list_windowsform
 
             ToDoListView.Columns["Nosaukums"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
             ToDoListView.Columns["Teksts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
-
+            LoadCategory();
             LoadData();
 
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -283,11 +267,24 @@ namespace To_do_list_windowsform
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (CategoryBox.SelectedIndex != -1)
+            if (CategoryBox.SelectedIndex != -1 && (string)CategoryBox.SelectedItem != " ")
             {
                 if(MessageBox.Show("Vai esat pārliecināts, ka vēlaties noņemt kategoriju?", "Delete Kategorija",MessageBoxButtons.YesNo,MessageBoxIcon.Information)==DialogResult.Yes)
                 {
-
+                    foreach (DataGridViewRow row in ToDoListView.Rows)
+                    {
+                        if (row.Cells[0].Value != null)
+                        {
+                            if (row.Cells[0].Value.ToString() == (string)CategoryBox.SelectedItem)
+                            {
+                                row.Cells[0].Value = Categories[0];
+                            }
+                        }
+                        if (row.Cells[0].Value == null)
+                        {
+                            row.Cells[0].Value = Categories[0];
+                        }
+                    }
                     Categories.Remove((string)CategoryBox.SelectedItem);
                     CategoryBox.DataSource = null;
                     CategoryBox.DataSource = Categories;
@@ -312,15 +309,27 @@ namespace To_do_list_windowsform
 
             try
             {
+                int RCounter = 0;
                 using (StreamWriter sw = new StreamWriter(filePath))
                 {
                     foreach (DataRow row in todolist.Rows)
                     {
+                        
                         bool important = (bool)row["Svarīgi"];
                         string title = row["Nosaukums"].ToString();
                         string description = row["Teksts"].ToString();
+                        string kategorijas;
+                        if (ToDoListView.Rows[RCounter].Cells[0].Value != null)
+                        {
+                           kategorijas = ToDoListView.Rows[RCounter++].Cells[0].Value.ToString();
+                        }
+                        else
+                        {
+                            RCounter++;
+                            kategorijas = Categories[0];
+                        }
 
-                        sw.WriteLine($"{important}\t{title}\t{description}");
+                        sw.WriteLine($"{kategorijas}\t{important}\t{title}\t{description}");
                     }
                 }
                 MessageBox.Show("Data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -330,7 +339,32 @@ namespace To_do_list_windowsform
                 Console.WriteLine("Error saving data: " + ex.Message);
             }
         }
+        private void SaveCategory()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, "CategoryData.txt");
 
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(filePath))
+                {
+                    foreach (string row in Categories)
+                    {
+
+                        if (row != " ")
+                        {
+                            string kategorijas = row.ToString();
+
+                            sw.WriteLine($"{kategorijas}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving data: " + ex.Message);
+            }
+        }
 
 
 
@@ -347,6 +381,7 @@ namespace To_do_list_windowsform
             {
                 try
                 {
+                    int RCounter = 0;
                     todolist.Clear();
                     using (StreamReader sr = new StreamReader(filePath))
                     {
@@ -354,11 +389,44 @@ namespace To_do_list_windowsform
                         while ((line = sr.ReadLine()) != null)
                         {
                             string[] data = line.Split('\t');
-                            bool important = bool.Parse(data[0]);
-                            string title = data[1];
-                            string description = data[2];
+                            string kategorijas = data[0];
+                            bool important = bool.Parse(data[1]);
+                            string title = data[2];
+                            string description = data[3];
 
                             todolist.Rows.Add(important, title, description);
+                            ToDoListView.Rows[RCounter++].Cells[0].Value = kategorijas;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error loading data: " + ex.Message);
+                }
+            }
+        }
+
+        private void LoadCategory()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, "CategoryData.txt");
+
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    todolist.Clear();
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+
+                            string[] data = line.Split('\n');
+                            if (data[0] != " ")
+                            {
+                                BindCategory(data[0]);
+                            }
                         }
                     }
                 }
@@ -372,6 +440,7 @@ namespace To_do_list_windowsform
         private void button8_Click_1(object sender, EventArgs e)
         {
             SaveData();
+            SaveCategory();
         }
     }
 
