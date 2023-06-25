@@ -45,6 +45,8 @@
             this.CategoryBox = new System.Windows.Forms.ComboBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ToDoListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +84,6 @@
             this.label1.Size = new System.Drawing.Size(167, 22);
             this.label1.TabIndex = 3;
             this.label1.Text = "Nosaukums:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -135,7 +136,6 @@
             this.ToDoListView.Name = "ToDoListView";
             this.ToDoListView.Size = new System.Drawing.Size(492, 367);
             this.ToDoListView.TabIndex = 8;
-            this.ToDoListView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListView_CellContentClick);
             // 
             // Kategorija
             // 
@@ -214,12 +214,34 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click_1);
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(78, 57);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(84, 21);
+            this.button9.TabIndex = 16;
+            this.button9.Text = "Bold";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(168, 57);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(84, 21);
+            this.button10.TabIndex = 17;
+            this.button10.Text = "Italic";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // ToDoList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.CategoryBox);
@@ -266,6 +288,8 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.DataGridViewComboBoxColumn Kategorija;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
     }
 }
 

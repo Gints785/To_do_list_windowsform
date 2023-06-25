@@ -17,6 +17,8 @@ namespace To_do_list_windowsform
     {
         bool LightTheme = true;
         private DataGridViewComboBoxColumn statusColumn;
+        bool IsBold = false;
+        bool IsItalic = false;
         public ToDoList()
         {
             InitializeComponent();
@@ -95,6 +97,23 @@ namespace To_do_list_windowsform
             else
             {
                 todolist.Rows.Add(false, TitleTextBox.Text, DescriptionTextBox.Text);
+                if (IsBold && IsItalic)
+                {
+
+                    ToDoListView.Rows[ToDoListView.RowCount - 1].Cells[3].Style.Font = new Font(ToDoListView.DefaultCellStyle.Font, FontStyle.Bold | FontStyle.Italic);
+                }
+                else if(IsBold && !IsItalic)
+                {
+                    ToDoListView.Rows[ToDoListView.RowCount - 1].Cells[3].Style.Font = new Font(ToDoListView.DefaultCellStyle.Font, FontStyle.Bold);
+                }
+                else if(!IsBold && IsItalic)
+                {
+                    ToDoListView.Rows[ToDoListView.RowCount - 1].Cells[3].Style.Font = new Font(ToDoListView.DefaultCellStyle.Font, FontStyle.Italic);
+                }
+                else if(!IsBold && !IsItalic)
+                {
+                    ToDoListView.Rows[ToDoListView.RowCount - 1].Cells[3].Style.Font = new Font(ToDoListView.DefaultCellStyle.Font, FontStyle.Regular);
+                }
             }
             TitleTextBox.Text = "";
             DescriptionTextBox.Text = "";
@@ -494,14 +513,48 @@ namespace To_do_list_windowsform
            
         }
 
-        private void ToDoListView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            IsBold = !IsBold;
+            if (IsBold && IsItalic)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Bold | FontStyle.Italic);
+            }
+            else if (!IsBold && IsItalic)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Regular | FontStyle.Italic);
+            }
+            else if (IsBold)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Bold);
+            }
+            else if (!IsBold)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Regular);
+            }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void button10_Click(object sender, EventArgs e)
         {
-
+            IsItalic = !IsItalic;
+            if (IsItalic && IsBold)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Italic | FontStyle.Bold);
+            }
+            else if (!IsItalic && IsBold)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Regular | FontStyle.Bold);
+            }
+            else if (IsItalic)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Italic);
+            }
+            else if(!IsItalic)
+            {
+                DescriptionTextBox.Font = new Font(DescriptionTextBox.Font, FontStyle.Regular);
+            }
         }
     }
 
