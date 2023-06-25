@@ -58,8 +58,6 @@ namespace To_do_list_windowsform
 
             ToDoListView.Columns["Nosaukums"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
             ToDoListView.Columns["Teksts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
-            LoadCategory();
-            LoadData();
        
             ToDoListView.Columns["Svarīgi"].Width = 45;
            
@@ -71,6 +69,8 @@ namespace To_do_list_windowsform
             statusColumn.HeaderText = "Status";
             statusColumn.Items.AddRange("", "Plānots", "Pabeigts");
             ToDoListView.Columns.Add(statusColumn);
+            LoadCategory();
+            LoadData();
 
         }
 
@@ -331,23 +331,36 @@ namespace To_do_list_windowsform
                         string title = row["Nosaukums"].ToString();
                         string description = row["Teksts"].ToString();
                         string kategorijas;
-                     
+                        string status;
+
+
                         if (ToDoListView.Rows[RCounter].Cells[0].Value != null)
                         {
-                           kategorijas = ToDoListView.Rows[RCounter++].Cells[0].Value.ToString();
+                           kategorijas = ToDoListView.Rows[RCounter].Cells[0].Value.ToString();
                         }
                         else
                         {
-                            RCounter++;
+                            
                             kategorijas = Categories[0];
                            
                         }
+                        if (ToDoListView.Rows[RCounter].Cells[4].Value != null)
+                        {
+                            status = ToDoListView.Rows[RCounter].Cells[4].Value.ToString();
+                        }
+                        else
+                        {
+
+                            status = "";
+
+                        }
+
+                        RCounter++;
 
 
 
 
-
-                        sw.WriteLine($"{kategorijas}\t{important}\t{title}\t{description}"); 
+                        sw.WriteLine($"{kategorijas}\t{important}\t{title}\t{description}\t{status}"); 
                     }
                 }
                 MessageBox.Show("Data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -411,12 +424,15 @@ namespace To_do_list_windowsform
                             bool important = bool.Parse(data[1]);
                             string title = data[2];
                             string description = data[3];
-                      
+                            string status = data[4];
+                            
 
 
 
                             todolist.Rows.Add(important, title, description);
-                            ToDoListView.Rows[RCounter++].Cells[0].Value = kategorijas;
+                            ToDoListView.Rows[RCounter].Cells[0].Value = kategorijas;
+                            ToDoListView.Rows[RCounter].Cells[4].Value = status;
+                            RCounter++;
 
                        
 
