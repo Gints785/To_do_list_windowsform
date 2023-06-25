@@ -282,15 +282,26 @@ namespace To_do_list_windowsform
 
         private void button6_Click(object sender, EventArgs e)
         {
+
+            int Fcounter = 0;
+            foreach (string finding in Categories)
+            {
+                if(finding == CategoryTextBox.Text)
+                {
+                    Fcounter++;
+                }
+            }
             if (string.IsNullOrEmpty(CategoryTextBox.Text))
             {
 
                 return;
             }
-
-            else
+            else if(Fcounter == 0)
             {
                 BindCategory(CategoryTextBox.Text);
+            }
+            else{
+                MessageBox.Show("Nevar izveidot divas identiskas kategorijas", "Radīšanas kļūda", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             CategoryTextBox.Text = "";
 
