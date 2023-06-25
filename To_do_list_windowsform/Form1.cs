@@ -16,6 +16,7 @@ namespace To_do_list_windowsform
     public partial class ToDoList : Form
     {
         bool LightTheme = true;
+        private DataGridViewComboBoxColumn statusColumn;
         public ToDoList()
         {
             InitializeComponent();
@@ -48,6 +49,7 @@ namespace To_do_list_windowsform
             todolist.Columns.Add("Svarīgi", typeof(bool));
             todolist.Columns.Add("Nosaukums");
             todolist.Columns.Add("Teksts");
+        
             ToDoListView.DataSource = todolist;
         
             ToDoListView.DefaultCellStyle.SelectionBackColor = ToDoListView.DefaultCellStyle.BackColor;
@@ -58,7 +60,17 @@ namespace To_do_list_windowsform
             ToDoListView.Columns["Teksts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
             LoadCategory();
             LoadData();
+       
+            ToDoListView.Columns["Svarīgi"].Width = 45;
+           
 
+
+
+            statusColumn = new DataGridViewComboBoxColumn();
+            statusColumn.DataPropertyName = "Status";
+            statusColumn.HeaderText = "Status";
+            statusColumn.Items.AddRange("", "Plānots", "Pabeigts");
+            ToDoListView.Columns.Add(statusColumn);
 
         }
 
@@ -69,7 +81,7 @@ namespace To_do_list_windowsform
               
                 return;
             }
-
+           
 
             if (isEditing)
             {
@@ -319,6 +331,7 @@ namespace To_do_list_windowsform
                         string title = row["Nosaukums"].ToString();
                         string description = row["Teksts"].ToString();
                         string kategorijas;
+                     
                         if (ToDoListView.Rows[RCounter].Cells[0].Value != null)
                         {
                            kategorijas = ToDoListView.Rows[RCounter++].Cells[0].Value.ToString();
@@ -327,9 +340,14 @@ namespace To_do_list_windowsform
                         {
                             RCounter++;
                             kategorijas = Categories[0];
+                           
                         }
 
-                        sw.WriteLine($"{kategorijas}\t{important}\t{title}\t{description}");
+
+
+
+
+                        sw.WriteLine($"{kategorijas}\t{important}\t{title}\t{description}"); 
                     }
                 }
                 MessageBox.Show("Data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -393,9 +411,16 @@ namespace To_do_list_windowsform
                             bool important = bool.Parse(data[1]);
                             string title = data[2];
                             string description = data[3];
+                      
+
+
 
                             todolist.Rows.Add(important, title, description);
                             ToDoListView.Rows[RCounter++].Cells[0].Value = kategorijas;
+
+                       
+
+
                         }
                     }
                 }
@@ -404,6 +429,10 @@ namespace To_do_list_windowsform
                     Console.WriteLine("Error loading data: " + ex.Message);
                 }
             }
+
+       
+
+
         }
 
         private void LoadCategory()
@@ -437,10 +466,26 @@ namespace To_do_list_windowsform
             }
         }
 
+        //==============================================================================================
+      
+
+        //==============================================================================================
+
         private void button8_Click_1(object sender, EventArgs e)
         {
             SaveData();
             SaveCategory();
+           
+        }
+
+        private void ToDoListView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
