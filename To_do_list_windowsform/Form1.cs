@@ -62,8 +62,9 @@ namespace To_do_list_windowsform
 
             ToDoListView.Columns["Nosaukums"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
             ToDoListView.Columns["Teksts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
-            ToDoListView.Columns["Svarīgi"].Width = 45;
-           
+            ToDoListView.Columns["Svarīgi"].Width = 57;
+            ToDoListView.Columns["Nosaukums"].Width = 85;
+
 
 
 
