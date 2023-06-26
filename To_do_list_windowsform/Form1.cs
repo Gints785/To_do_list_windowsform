@@ -29,8 +29,10 @@ namespace To_do_list_windowsform
         public List<string> Categories = new List<string>();
         private void BindCategory(String Nosaukums)
         {
+            SetCategories(Nosaukums);
             var combobox = (DataGridViewComboBoxColumn)ToDoListView.Columns["Kategorija"];
-            combobox.DataSource = SetCategories(Nosaukums);
+            combobox.DataSource = null;
+            combobox.DataSource = Categories; 
             CategoryBox.DataSource = null;
             CategoryBox.DataSource = Categories;
 
@@ -60,7 +62,6 @@ namespace To_do_list_windowsform
 
             ToDoListView.Columns["Nosaukums"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
             ToDoListView.Columns["Teksts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
-       
             ToDoListView.Columns["Svarīgi"].Width = 45;
            
 
@@ -69,7 +70,7 @@ namespace To_do_list_windowsform
             statusColumn = new DataGridViewComboBoxColumn();
             statusColumn.DataPropertyName = "Status";
             statusColumn.HeaderText = "Status";
-            statusColumn.Items.AddRange("", "Plānots", "Pabeigts");
+            statusColumn.Items.AddRange("", "Plānots", "Procesā", "Pabeigts");
             ToDoListView.Columns.Add(statusColumn);
             LoadCategory();
             LoadData();
