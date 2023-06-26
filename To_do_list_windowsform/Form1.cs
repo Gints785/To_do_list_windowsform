@@ -26,7 +26,10 @@ namespace To_do_list_windowsform
 
         DataTable todolist = new DataTable();
         bool isEditing = false;
+        // Masīvs ar kategorijām
         public List<string> Categories = new List<string>();
+
+        // Funkcija, kas ļauj izveidot jaunas kategorijas
         private void BindCategory(String Nosaukums)
         {
             SetCategories(Nosaukums);
@@ -37,6 +40,7 @@ namespace To_do_list_windowsform
             CategoryBox.DataSource = Categories;
 
         }
+        // Funkcija, kas pievieno jaunu kategoriju
         private List<string> SetCategories(string Nosaukums) 
         {
             Categories.Add(Nosaukums);
@@ -47,6 +51,7 @@ namespace To_do_list_windowsform
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Tukšas veidņu kategorijas izveide, tabulas pamatnes pievienošana
             Categories.Add(" ");
             var combo = (DataGridViewComboBoxColumn)ToDoListView.Columns["Kategorija"];
             combo.DataSource = Categories;
@@ -67,17 +72,18 @@ namespace To_do_list_windowsform
 
 
 
-
+            //Statusa izveide un iekļaušana
             statusColumn = new DataGridViewComboBoxColumn();
             statusColumn.DataPropertyName = "Status";
             statusColumn.HeaderText = "Status";
             statusColumn.Items.AddRange("", "Plānots", "Procesā", "Pabeigts");
             ToDoListView.Columns.Add(statusColumn);
+            //Visu saglabāto failu ielādes
             LoadCategory();
             LoadData();
 
         }
-
+        //Izveido vai rediģē uzdevumu
         private void button4_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TitleTextBox.Text) && string.IsNullOrEmpty(DescriptionTextBox.Text))
@@ -89,7 +95,7 @@ namespace To_do_list_windowsform
 
             if (isEditing)
             {
-               
+                //Rediģē uzdevumu, ja tas pašlaik tiek rediģēts.
                 bool starStatus = (bool)todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Svarīgi"];
                 todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Nosaukums"] = TitleTextBox.Text;
                 todolist.Rows[ToDoListView.CurrentCell.RowIndex]["Teksts"] = DescriptionTextBox.Text;
@@ -98,6 +104,7 @@ namespace To_do_list_windowsform
             }
             else
             {
+                //Daudz if lai attelot formatētam tekstam
                 todolist.Rows.Add(false, TitleTextBox.Text, DescriptionTextBox.Text);
                 if (IsBold && IsItalic)
                 {
@@ -122,7 +129,7 @@ namespace To_do_list_windowsform
             isEditing = false;
      
         }
-
+        //Notīra ievades lauku
         private void button1_Click(object sender, EventArgs e)
         {
             isEditing = false;
@@ -130,6 +137,7 @@ namespace To_do_list_windowsform
             DescriptionTextBox.Text = "";
         }
 
+        //Ļauj rediģēt izvēlēto uzdevumu
         private void button2_Click(object sender, EventArgs e)
         {
 
@@ -143,8 +151,8 @@ namespace To_do_list_windowsform
             TitleTextBox.Text = todolist.Rows[ToDoListView.CurrentCell.RowIndex].ItemArray[1].ToString();
             DescriptionTextBox.Text = todolist.Rows[ToDoListView.CurrentCell.RowIndex].ItemArray[2].ToString();
             }
-        }   
-
+        }
+        //Noņem izvēlēto uzdevumu
         private void button3_Click(object sender, EventArgs e)
         {
             try
@@ -163,7 +171,7 @@ namespace To_do_list_windowsform
 
 
 
-
+        // Maina atzīmi uz svarīgo
         private void ToDoListView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 0)
@@ -179,6 +187,7 @@ namespace To_do_list_windowsform
              
             }
         }
+
         private void ToDoListView_SelectionChanged(object sender, EventArgs e)
         {
             if (ToDoListView.SelectedRows.Count > 0)
@@ -237,9 +246,19 @@ namespace To_do_list_windowsform
                 this.ToDoListView.EnableHeadersVisualStyles = false;
                 this.ToDoListView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 31, 31, 31);
                 this.ToDoListView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                this.ToDoListView.DefaultCellStyle.ForeColor = Color.White;
                 this.ToDoListView.DefaultCellStyle.BackColor = Color.FromArgb(255, 31, 31, 31);
-                this.ToDoListView.DefaultCellStyle.SelectionBackColor = Color.Black;
+                this.Kategorija.DefaultCellStyle.BackColor = Color.FromArgb(255, 31, 31, 31);
+                this.Kategorija.DefaultCellStyle.ForeColor = Color.White;
+                this.Kategorija.FlatStyle = FlatStyle.Flat;
+                this.statusColumn.DefaultCellStyle.BackColor = Color.FromArgb(255, 31, 31, 31);
+                this.statusColumn.DefaultCellStyle.ForeColor = Color.White;
+                this.statusColumn.FlatStyle = FlatStyle.Flat;
+                this.CategoryBox.BackColor = Color.FromArgb(255, 31, 31, 31);
+                this.CategoryBox.ForeColor = Color.White;
+                this.CategoryBox.FlatStyle = FlatStyle.Flat;
                 this.ToDoListView.BackgroundColor = Color.FromArgb(255, 31, 31, 31);
+                
                 // Maina šīs pogas attēlu
                 this.button5.BackgroundImage = To_do_list_windowsform.Properties.Resources.light_theme;
             }
@@ -275,13 +294,20 @@ namespace To_do_list_windowsform
                 this.ToDoListView.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
                 this.ToDoListView.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(255, 31, 31, 31);
                 this.ToDoListView.DefaultCellStyle.BackColor = Color.White;
+                this.ToDoListView.DefaultCellStyle.ForeColor = Color.Black;
                 this.ToDoListView.DefaultCellStyle.SelectionBackColor = Color.White;
                 this.ToDoListView.BackgroundColor = Color.White;
+                this.Kategorija.DefaultCellStyle.BackColor = Color.White;
+                this.Kategorija.DefaultCellStyle.ForeColor = Color.Black;
+                this.statusColumn.DefaultCellStyle.BackColor = Color.White;
+                this.statusColumn.DefaultCellStyle.ForeColor = Color.Black;
+                this.CategoryBox.BackColor = Color.White;
+                this.CategoryBox.ForeColor = Color.Black;
                 this.button5.BackgroundImage = To_do_list_windowsform.Properties.Resources.dark_theme;
             }
         }
 
-
+        // Funkcija kategoriju izveidošanai
         private void button6_Click(object sender, EventArgs e)
         {
 
@@ -309,12 +335,15 @@ namespace To_do_list_windowsform
 
         }
 
+        //Funkcija kategoriju noņemšanai
         private void button7_Click(object sender, EventArgs e)
         {
+            // Aizliedz dzēst veidnes tukšu kategoriju
             if (CategoryBox.SelectedIndex != -1 && (string)CategoryBox.SelectedItem != " ")
             {
                 if(MessageBox.Show("Vai esat pārliecināts, ka vēlaties noņemt kategoriju?", "Delete Kategorija",MessageBoxButtons.YesNo,MessageBoxIcon.Information)==DialogResult.Yes)
                 {
+                    // Cikls, lai pārbaudītu visus uzdevumus ar šo kategoriju un tos noņemtu
                     foreach (DataGridViewRow row in ToDoListView.Rows)
                     {
                         if (row.Cells[0].Value != null)
@@ -345,7 +374,7 @@ namespace To_do_list_windowsform
             }
         }
 
-
+        // Uzdevumu saglabāšanas funkcija
         private void SaveData()
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -365,7 +394,7 @@ namespace To_do_list_windowsform
                         string kategorijas;
                         string status;
 
-
+                        // Combobox pārbaude pareizai saglabāšanai bez kļūdas
                         if (ToDoListView.Rows[RCounter].Cells[0].Value != null)
                         {
                            kategorijas = ToDoListView.Rows[RCounter].Cells[0].Value.ToString();
@@ -402,6 +431,7 @@ namespace To_do_list_windowsform
                 Console.WriteLine("Error saving data: " + ex.Message);
             }
         }
+        //Visu kategoriju saglabāšanas funkcija
         private void SaveCategory()
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -413,7 +443,7 @@ namespace To_do_list_windowsform
                 {
                     foreach (string row in Categories)
                     {
-
+                        //Nesniedz tukšas veidnes kategorijas saglabāšanu un ielādes
                         if (row != " ")
                         {
                             string kategorijas = row.ToString();
@@ -434,7 +464,7 @@ namespace To_do_list_windowsform
 
 
 
-
+        //Uzdevumu ielādes funkcija
         private void LoadData()
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -482,7 +512,7 @@ namespace To_do_list_windowsform
 
 
         }
-
+        //Kategoriju ielādes funkcija
         private void LoadCategory()
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -515,10 +545,11 @@ namespace To_do_list_windowsform
         }
 
         //==============================================================================================
-      
+
 
         //==============================================================================================
 
+        //Saglabāšanas poga
         private void button8_Click_1(object sender, EventArgs e)
         {
             SaveData();
@@ -527,7 +558,7 @@ namespace To_do_list_windowsform
         }
 
 
-
+        //Teksta formatēšanas pogas. Daudz if, lai var izmantot gan slīprakstu, gan treknrakstu, gan visi kopā
         private void button9_Click(object sender, EventArgs e)
         {
             IsBold = !IsBold;
